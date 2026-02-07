@@ -48,8 +48,18 @@ else:
     print(f"[ERRORE] MESHTASTIC_MODE non valido: {MESHTASTIC_MODE}. Usa tcp, serial o auto.")
     sys.exit(1)
 
-destination_node = None
-channel_index    = 1
+destination_node_raw = os.getenv("DESTINATION_NODE")
+if destination_node_raw and destination_node_raw.lower() not in {"none", "null", ""}:
+    destination_node = destination_node_raw
+else:
+    destination_node = None
+
+channel_index_raw = os.getenv("CHANNEL_INDEX", "1")
+try:
+    channel_index = int(channel_index_raw)
+except (TypeError, ValueError):
+    print(f"[ERRORE] CHANNEL_INDEX non valido '{channel_index_raw}'. Uso il default 1.")
+    channel_index = 1
 
 fallback_message = "Nessun dato meteo disponibile."
 
