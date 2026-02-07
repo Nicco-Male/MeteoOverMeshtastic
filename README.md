@@ -16,13 +16,30 @@ Invia le osservazioni di Weather Underground tramite Meshtastic.
    cp .env.example .env
    ```
 
-3. Avvia lo script di setup:
+3. Apri `.env` e compila i valori. Esempio:
+
+   ```ini
+   WEATHER_API_KEY=la_tua_chiave_api
+   STATION_ID=la_tua_stazione
+   UNITS=m
+   MESHTASTIC_MODE=auto
+   MESHTASTIC_IP=192.168.0.60
+   MESHTASTIC_PORT=4403
+   MESHTASTIC_SERIAL_PORT=
+   DESTINATION_NODE=
+   CHANNEL_INDEX=1
+   WEATHER_URL=https://api.weather.com/v2/pws/observations/current
+   LOCATION_NAME=Bientina (Pi)
+   ```
+   
+
+4. Avvia lo script di setup:
 
    ```bash
    ./setup.sh
    ```
-
-4. Avvia il programma usando l'interprete della venv:
+   
+ 5.  Avvia il programma usando l'interprete della venv:
 
    ```bash
    .venv/bin/python MeteoOverMeshtastic.py
