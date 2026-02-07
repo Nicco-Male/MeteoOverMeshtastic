@@ -42,41 +42,41 @@ Per un’installazione rapida e senza sorprese puoi utilizzare lo script `setup.
 
 ## 3. Configurazione tramite `.env`
 
-Lo script legge i parametri di configurazione dalle **variabili d’ambiente** e, se presente, dal file `.env` usando la libreria `python‑dotenv`【12191410124782†L56-L88】.  L’esempio contenuto in `.env.example` è un ottimo punto di partenza【809767071843827†L0-L31】.  Di seguito è riportata la lista completa delle variabili supportate:
+Lo script legge i parametri di configurazione dalle **variabili d’ambiente** e, se presente, dal file `.env` usando la libreria `python‑dotenv`【12191410124782†L56-L88】.  L’esempio contenuto in `.env.example` è un ottimo punto di partenza.  Di seguito è riportata la lista completa delle variabili supportate:
 
 | Variabile | Descrizione | Valore di default / Obbligatorio |
 | --- | --- | --- |
-| `WEATHER_API_KEY` | **Chiave API Weather Underground**. È indispensabile per interrogare le API e recuperare le osservazioni meteo. | *Obbligatoria* – se non impostata lo script si interrompe con errore【189822442358289†L92-L95】. |
-| `STATION_ID` | ID della stazione su Weather Underground. | `test`【12191410124782†L70-L99】 |
-| `UNITS` | Unità di misura da usare per le API (`m` per metriche, `e` per imperiali, ecc.). | `m`【12191410124782†L70-L99】 |
-| `WEATHER_URL` | Endpoint API di Weather Underground da cui prelevare i dati. | `https://api.weather.com/v2/pws/observations/current`【12191410124782†L100-L102】 |
-| `LOCATION_NAME` | Nome della località che comparirà nel messaggio inviato su Meshtastic. | `TestName (region)`【12191410124782†L100-L104】 |
+| `WEATHER_API_KEY` | **Chiave API Weather Underground**. È indispensabile per interrogare le API e recuperare le osservazioni meteo. | *Obbligatoria* – se non impostata lo script si interrompe con errore. |
+| `STATION_ID` | ID della stazione su Weather Underground. | `test` |
+| `UNITS` | Unità di misura da usare per le API (`m` per metriche, `e` per imperiali, ecc.). | `m` |
+| `WEATHER_URL` | Endpoint API di Weather Underground da cui prelevare i dati. | `https://api.weather.com/v2/pws/observations/current` |
+| `LOCATION_NAME` | Nome della località che comparirà nel messaggio inviato su Meshtastic. | `TestName (region)` |
 | `TIMEZONE` | Fuso orario per formattare data e ora del messaggio. Usa l’identificatore [IANA TZ](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), ad esempio `Europe/Rome`. | `Europe/Rome` |
-| `MESHTASTIC_MODE` | Modalità di connessione a Meshtastic. Può essere `tcp`, `serial` oppure `auto`【189822442358289†L24-L47】. In modalità `auto` lo script prova a usare la porta seriale (`MESHTASTIC_SERIAL_PORT`) e, se non trovata, passa alla connessione TCP (`MESHTASTIC_IP` + `MESHTASTIC_PORT`)【189822442358289†L36-L43】. | `auto`【12191410124782†L72-L76】 |
-| `MESHTASTIC_IP` | Indirizzo IP del dispositivo Meshtastic per la connessione TCP. Necessario se `MESHTASTIC_MODE` è `tcp`【189822442358289†L24-L29】. | — |
-| `MESHTASTIC_PORT` | Porta TCP del dispositivo Meshtastic【12191410124782†L76-L78】. | `4403`【12191410124782†L103-L107】 |
-| `MESHTASTIC_SERIAL_PORT` | Dispositivo seriale (es. `/dev/ttyUSB0` su Linux, `COM3` su Windows). Necessario se `MESHTASTIC_MODE` è `serial`【189822442358289†L24-L33】. | — |
-| `DESTINATION_NODE` | ID del nodo Meshtastic destinatario. Se lasciato vuoto o impostato a `None` lo script invierà il messaggio in **broadcast**【189822442358289†L50-L54】. | *Nessun default* |
-| `CHANNEL_INDEX` | Indice del canale Meshtastic su cui inviare il messaggio【189822442358289†L56-L61】. | `1`【12191410124782†L104-L107】 |
-| `RUN_INTERVAL_MINUTES` | Intervallo in minuti per l’esecuzione periodica con systemd timer. Viene utilizzato dallo script di installazione systemd【294953117720645†L18-L27】. | `10` (nel file di esempio)【809767071843827†L29-L31】 |
+| `MESHTASTIC_MODE` | Modalità di connessione a Meshtastic. Può essere `tcp`, `serial` oppure `auto`. In modalità `auto` lo script prova a usare la porta seriale (`MESHTASTIC_SERIAL_PORT`) e, se non trovata, passa alla connessione TCP (`MESHTASTIC_IP` + `MESHTASTIC_PORT`). | `auto` |
+| `MESHTASTIC_IP` | Indirizzo IP del dispositivo Meshtastic per la connessione TCP. Necessario se `MESHTASTIC_MODE` è `tcp`. | — |
+| `MESHTASTIC_PORT` | Porta TCP del dispositivo Meshtastic. | `4403` |
+| `MESHTASTIC_SERIAL_PORT` | Dispositivo seriale (es. `/dev/ttyUSB0` su Linux, `COM3` su Windows). Necessario se `MESHTASTIC_MODE` è `serial`. | — |
+| `DESTINATION_NODE` | ID del nodo Meshtastic destinatario. Se lasciato vuoto o impostato a `None` lo script invierà il messaggio in **broadcast**. | *Nessun default* |
+| `CHANNEL_INDEX` | Indice del canale Meshtastic su cui inviare il messaggio. | `1` |
+| `RUN_INTERVAL_MINUTES` | Intervallo in minuti per l’esecuzione periodica con systemd timer. Viene utilizzato dallo script di installazione systemd. | `10` (nel file di esempio) |
 
-**Consiglio:** dopo aver modificato `.env`, verifica di non aver lasciato spazi o virgolette indesiderate e assicurati che la chiave API sia corretta.  In caso di errori di configurazione, lo script stampa messaggi esplicativi e termina l’esecuzione【189822442358289†L24-L48】.
+**Consiglio:** dopo aver modificato `.env`, verifica di non aver lasciato spazi o virgolette indesiderate e assicurati che la chiave API sia corretta.  In caso di errori di configurazione, lo script stampa messaggi esplicativi e termina l’esecuzione.
 
 ## 4. Come funziona lo script
 
 Una volta avviato, lo script esegue i seguenti passi:
 
-1. **Carica le variabili d’ambiente** dal file `.env` tramite `python‑dotenv`【189822442358289†L10-L16】.
+1. **Carica le variabili d’ambiente** dal file `.env` tramite `python‑dotenv`.
 2. **Determina la modalità di connessione** a Meshtastic (`tcp`, `serial` o `auto`):
-   - In modalità `tcp`, verifica che `MESHTASTIC_IP` e `MESHTASTIC_PORT` siano impostati e costruisce l’indirizzo `ip:porta`【189822442358289†L24-L29】.
-   - In modalità `serial`, richiede `MESHTASTIC_SERIAL_PORT`【189822442358289†L30-L34】.
-   - In modalità `auto`, preferisce la porta seriale se definita, altrimenti usa la connessione TCP【189822442358289†L36-L43】.
-   Se nessuna configurazione è disponibile viene emesso un errore esplicativo【189822442358289†L44-L48】.
-3. **Recupera i dati meteo** da Weather Underground usando l’endpoint definito e la chiave API【189822442358289†L92-L107】.  Eventuali eccezioni (ad esempio assenza della chiave API o problemi di rete) vengono segnalate sullo standard output e non interrompono il resto del sistema.
-4. **Estrae e formatta i campi** (temperatura, umidità, vento, precipitazioni, pressione) creando un messaggio con emoji e unità di misura【189822442358289†L118-L152】.  La data e l’ora sono formattate secondo la timezone impostata【189822442358289†L136-L143】.
-5. **Invia il messaggio** al nodo di destinazione tramite la libreria Meshtastic: se `DESTINATION_NODE` è impostata, il messaggio viene recapitato a quel nodo; altrimenti viene trasmesso in broadcast【189822442358289†L165-L171】.  Dopo l’invio l’interfaccia viene chiusa e viene stampato un log【189822442358289†L164-L175】.
+   - In modalità `tcp`, verifica che `MESHTASTIC_IP` e `MESHTASTIC_PORT` siano impostati e costruisce l’indirizzo `ip:porta`.
+   - In modalità `serial`, richiede `MESHTASTIC_SERIAL_PORT`.
+   - In modalità `auto`, preferisce la porta seriale se definita, altrimenti usa la connessione TCP.
+   Se nessuna configurazione è disponibile viene emesso un errore esplicativo.
+3. **Recupera i dati meteo** da Weather Underground usando l’endpoint definito e la chiave API.  Eventuali eccezioni (ad esempio assenza della chiave API o problemi di rete) vengono segnalate sullo standard output e non interrompono il resto del sistema.
+4. **Estrae e formatta i campi** (temperatura, umidità, vento, precipitazioni, pressione) creando un messaggio con emoji e unità di misura.  La data e l’ora sono formattate secondo la timezone impostata.
+5. **Invia il messaggio** al nodo di destinazione tramite la libreria Meshtastic: se `DESTINATION_NODE` è impostata, il messaggio viene recapitato a quel nodo; altrimenti viene trasmesso in broadcast.  Dopo l’invio l’interfaccia viene chiusa e viene stampato un log.
 
-Il file `MeteoOverMeshtastic.py` è scritto in modo modulare: se desideri cambiare i campi da visualizzare o la formattazione del messaggio, puoi modificare il dizionario `JSON_FIELDS` o la funzione `format_weather_message` contenuta nel file【189822442358289†L79-L86】.
+Il file `MeteoOverMeshtastic.py` è scritto in modo modulare: se desideri cambiare i campi da visualizzare o la formattazione del messaggio, puoi modificare il dizionario `JSON_FIELDS` o la funzione `format_weather_message` contenuta nel file.
 
 ## 5. Esecuzione manuale
 
@@ -87,7 +87,7 @@ source .venv/bin/activate
 .venv/bin/python MeteoOverMeshtastic.py
 ```
 
-Se tutto è configurato correttamente vedrai i log con indicazioni della modalità di connessione (`Connessione TCP a IP:porta` oppure `Connessione seriale su /dev/ttyUSB0`), l’eventuale recupero dei dati meteo e l’invio del messaggio【189822442358289†L191-L205】.
+Se tutto è configurato correttamente vedrai i log con indicazioni della modalità di connessione (`Connessione TCP a IP:porta` oppure `Connessione seriale su /dev/ttyUSB0`), l’eventuale recupero dei dati meteo e l’invio del messaggio.
 
 ## 6. Esecuzione automatica con systemd
 
@@ -95,12 +95,12 @@ Se desideri che MeteoOverMeshtastic invii i dati a intervalli regolari senza dov
 
 ### 6.1 Contenuto della cartella `deploy/systemd`
 
-La cartella contiene quattro file principali【294953117720645†L5-L14】:
+La cartella contiene quattro file principali:
 
-- `meteo-over-meshtastic.service`: unità di servizio che definisce la directory di lavoro, il percorso del programma e l’utente con cui eseguirlo【280054495411945†L1-L13】.
-- `meteo-over-meshtastic.timer`: definisce l’intervallo di esecuzione in minuti tramite il placeholder `@RUN_INTERVAL_MINUTES@`【746942508979865†L1-L7】.
-- `start-meteo.sh`: wrapper che carica il file `.env` e avvia il programma, stampando a log l’intervallo corrente【752696731001987†L14-L18】.
-- `install.sh`: script che sostituisce i placeholder nei file unit, copia le unità nella directory `/etc/systemd/system`, ricarica systemd e abilita il timer【402729759199522†L27-L41】.
+- `meteo-over-meshtastic.service`: unità di servizio che definisce la directory di lavoro, il percorso del programma e l’utente con cui eseguirlo.
+- `meteo-over-meshtastic.timer`: definisce l’intervallo di esecuzione in minuti tramite il placeholder `@RUN_INTERVAL_MINUTES@`.
+- `start-meteo.sh`: wrapper che carica il file `.env` e avvia il programma, stampando a log l’intervallo corrente.
+- `install.sh`: script che sostituisce i placeholder nei file unit, copia le unità nella directory `/etc/systemd/system`, ricarica systemd e abilita il timer.
 
 ### 6.2 Installazione del servizio
 
@@ -129,7 +129,7 @@ La cartella contiene quattro file principali【294953117720645†L5-L14】:
 
 ### 6.3 Esecuzione con un utente dedicato
 
-Nel file di servizio predefinito, la direttiva `User=meteo` definisce l’utente con cui viene eseguito lo script【280054495411945†L5-L13】.  Puoi modificare questo valore per utilizzare un utente diverso, a patto che abbia accesso alla directory del progetto. Ricorda di creare l’utente e concedergli i permessi necessari prima di installare il servizio.
+Nel file di servizio predefinito, la direttiva `User=meteo` definisce l’utente con cui viene eseguito lo script.  Puoi modificare questo valore per utilizzare un utente diverso, a patto che abbia accesso alla directory del progetto. Ricorda di creare l’utente e concedergli i permessi necessari prima di installare il servizio.
 
 ## 7. Aggiornamenti e manutenzione
 
@@ -145,15 +145,15 @@ Ricorda di verificare periodicamente la scadenza della tua API key di Weather U
 
 | Problema | Possibile causa e soluzione |
 | --- | --- |
-| **Errore “WEATHER_API_KEY non impostata”** | La variabile `WEATHER_API_KEY` non è definita nel file `.env`【189822442358289†L92-L95】. Aggiungila e assicurati che il valore sia corretto. |
-| **Messaggio “[ERRORE] MESHTASTIC_MODE=tcp richiede MESHTASTIC_IP e MESHTASTIC_PORT”** | Hai impostato `MESHTASTIC_MODE=tcp` ma non hai definito `MESHTASTIC_IP` o `MESHTASTIC_PORT`【189822442358289†L24-L29】. Compila entrambi o passa a modalità `auto`. |
-| **Il programma stampa “Connessione Meshtastic fallita”** | La connessione al dispositivo non è riuscita【189822442358289†L191-L201】. Verifica che il dispositivo sia acceso, che l’IP/porta o la porta seriale siano corretti e che eventuali firewall non blocchino la connessione. |
-| **Non arrivano dati meteo** | Controlla che la stazione Weather Underground invii regolarmente i dati e che l’ID e la chiave API siano corretti. In caso di timeout o HTTP error la funzione `get_weather_data` segnala l’errore【189822442358289†L92-L109】. |
-| **Il messaggio mostra “Nessun dato meteo disponibile.”** | La variabile `fallback_message` è usata se non ci sono osservazioni oppure se si verifica un’eccezione durante la formattazione【189822442358289†L118-L158】. Verifica la configurazione e lo stato della stazione. |
+| **Errore “WEATHER_API_KEY non impostata”** | La variabile `WEATHER_API_KEY` non è definita nel file `.env`. Aggiungila e assicurati che il valore sia corretto. |
+| **Messaggio “[ERRORE] MESHTASTIC_MODE=tcp richiede MESHTASTIC_IP e MESHTASTIC_PORT”** | Hai impostato `MESHTASTIC_MODE=tcp` ma non hai definito `MESHTASTIC_IP` o `MESHTASTIC_PORT`. Compila entrambi o passa a modalità `auto`. |
+| **Il programma stampa “Connessione Meshtastic fallita”** | La connessione al dispositivo non è riuscita. Verifica che il dispositivo sia acceso, che l’IP/porta o la porta seriale siano corretti e che eventuali firewall non blocchino la connessione. |
+| **Non arrivano dati meteo** | Controlla che la stazione Weather Underground invii regolarmente i dati e che l’ID e la chiave API siano corretti. In caso di timeout o HTTP error la funzione `get_weather_data` segnala l’errore. |
+| **Il messaggio mostra “Nessun dato meteo disponibile.”** | La variabile `fallback_message` è usata se non ci sono osservazioni oppure se si verifica un’eccezione durante la formattazione. Verifica la configurazione e lo stato della stazione. |
 
 ## 9. Licenza
 
-Questo progetto è rilasciato con doppia licenza: **MIT** per il codice e **CC BY‑SA 4.0** per la documentazione, come indicato nei file `LICENSE-CODE` e `LICENSE-DOCS`【540496706110657†L41-L44】.  Puoi utilizzare e modificare il software liberamente rispettando i termini delle licenze.
+Questo progetto è rilasciato con doppia licenza: **MIT** per il codice e **CC BY‑SA 4.0** per la documentazione, come indicato nei file `LICENSE-CODE` e `LICENSE-DOCS`.  Puoi utilizzare e modificare il software liberamente rispettando i termini delle licenze.
 
 ---
 
