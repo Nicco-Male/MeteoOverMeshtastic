@@ -7,10 +7,12 @@ import requests
 import json
 from datetime import datetime
 from zoneinfo import ZoneInfo
-
+from dotenv import load_dotenv
 # -------------------------------------------------
 # CONFIGURAZIONE MESHTASTIC
 # -------------------------------------------------
+
+load_dotenv()
 
 MESHTASTIC_MODE = os.getenv("MESHTASTIC_MODE", "auto").lower()
 MESH_IP = os.getenv("MESHTASTIC_IP")
@@ -55,7 +57,7 @@ fallback_message = "Nessun dato meteo disponibile."
 # CONFIGURAZIONE WEATHER UNDERGROUND (come ESEMPIO)
 # -------------------------------------------------
 
-# Imposta le variabili d'ambiente prima di avviare lo script (vedi .env.example).
+# Variabili d'ambiente caricate da .env (vedi .env.example).
 WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
 STATION_ID      = os.getenv("STATION_ID", "test")
 UNITS           = os.getenv("UNITS", "m")
