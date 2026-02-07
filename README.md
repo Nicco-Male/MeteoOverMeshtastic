@@ -32,6 +32,7 @@ Invia le osservazioni di Weather Underground tramite Meshtastic.
    CHANNEL_INDEX=1
    WEATHER_URL=https://api.weather.com/v2/pws/observations/current
    LOCATION_NAME=Bientina (Pi)
+   RUN_INTERVAL_HOURS=6
    ```
    
 
@@ -76,6 +77,7 @@ seguono sono allineate al file `.env.example` e alle impostazioni definite in
    CHANNEL_INDEX=1
    WEATHER_URL=https://api.weather.com/v2/pws/observations/current
    LOCATION_NAME=Bientina (Pi)
+   RUN_INTERVAL_HOURS=6
    ```
 
 ### 2) Caricamento automatico del `.env`
@@ -95,6 +97,7 @@ Le variabili seguenti controllano la configurazione principale:
 | `UNITS` | Unità di misura per le osservazioni (`m` per metriche). | `m` |
 | `WEATHER_URL` | Endpoint API Weather Underground. | `https://api.weather.com/v2/pws/observations/current` |
 | `LOCATION_NAME` | Nome località mostrato nel messaggio inviato. | `TestName (region)` |
+| `RUN_INTERVAL_HOURS` | Intervallo di esecuzione (in ore) per il timer systemd. | `6` |
 | `MESHTASTIC_MODE` | Modalità Meshtastic (`tcp`, `serial` o `auto`). | `auto` |
 | `MESHTASTIC_IP` | IP del dispositivo Meshtastic (modalità TCP). | `192.168.0.60` |
 | `MESHTASTIC_PORT` | Porta TCP del dispositivo Meshtastic. | `4403` |
@@ -118,3 +121,25 @@ definisce:
 Se vuoi usare una connessione seriale, imposta `MESHTASTIC_MODE=serial` e
 configura `MESHTASTIC_SERIAL_PORT` con un device seriale (es. `/dev/ttyUSB0`
 o `COM3`).
+
+## Schedulazione con systemd
+
+Le unità systemd si trovano in `deploy/systemd/`. Copiale sul sistema con lo
+script di installazione (richiede permessi sudo):
+
+```bash
+sudo ./deploy/systemd/install.sh
+```
+
+Per verificare lo stato del timer:
+
+```bash
+systemctl status meteo-over-meshtastic.timer
+```
+
+Per cambiare l'intervallo di esecuzione, modifica `RUN_INTERVAL_HOURS` nel
+file `.env` e riesegui lo script di installazione:
+
+```bash
+sudo ./deploy/systemd/install.sh
+```
