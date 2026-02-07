@@ -6,7 +6,7 @@ import os
 import requests
 import json
 from datetime import datetime
-import pytz
+from zoneinfo import ZoneInfo
 
 # -------------------------------------------------
 # CONFIGURAZIONE MESHTASTIC
@@ -123,10 +123,10 @@ def format_weather_message(weather_json):
         pres = default_value(extract_field(obs, JSON_FIELDS["pressure"]))
 
         try:
-            tz = pytz.timezone(TIMEZONE)
+            tz = ZoneInfo(TIMEZONE)
         except Exception as e:
             print(f"[ERRORE] Timezone non valida '{TIMEZONE}': {e}. Uso UTC.")
-            tz = pytz.UTC
+            tz = ZoneInfo("UTC")
         now = datetime.now(tz).strftime("%d/%m/%Y %H:%M:%S")
 
         msg = (
