@@ -58,8 +58,12 @@ seguono sono allineate al file `.env.example` e alle impostazioni definite in
    WEATHER_API_KEY=la_tua_chiave_api
    STATION_ID=la_tua_stazione
    UNITS=m
+   MESHTASTIC_MODE=auto
    MESHTASTIC_IP=192.168.0.60
    MESHTASTIC_PORT=4403
+   MESHTASTIC_SERIAL_PORT=
+   DESTINATION_NODE=
+   CHANNEL_INDEX=1
    WEATHER_URL=https://api.weather.com/v2/pws/observations/current
    LOCATION_NAME=Bientina (Pi)
    ```
@@ -81,8 +85,12 @@ Le variabili seguenti controllano la configurazione principale:
 | `UNITS` | Unità di misura per le osservazioni (`m` per metriche). | `m` |
 | `WEATHER_URL` | Endpoint API Weather Underground. | `https://api.weather.com/v2/pws/observations/current` |
 | `LOCATION_NAME` | Nome località mostrato nel messaggio inviato. | `TestName (region)` |
+| `MESHTASTIC_MODE` | Modalità Meshtastic (`tcp`, `serial` o `auto`). | `auto` |
 | `MESHTASTIC_IP` | IP del dispositivo Meshtastic (modalità TCP). | `192.168.0.60` |
 | `MESHTASTIC_PORT` | Porta TCP del dispositivo Meshtastic. | `4403` |
+| `MESHTASTIC_SERIAL_PORT` | Porta seriale Meshtastic (modalità serial). | Nessun default. |
+| `DESTINATION_NODE` | Nodo di destinazione Meshtastic. Vuoto o `None` per il broadcast. | Nessun default (broadcast). |
+| `CHANNEL_INDEX` | Indice del canale Meshtastic usato per l'invio. | `1` |
 
 ### 4) Configurazione lato Meshtastic
 
@@ -91,13 +99,15 @@ definisce:
 
 - **Connessione TCP**: lo script usa `MESHTASTIC_IP` e `MESHTASTIC_PORT` per
   costruire la stringa `ip:porta` (es. `192.168.0.60:4403`).
-- **`is_tcp`**: è impostato a `True`, quindi la connessione seriale non viene
-  usata (a meno di modificare il codice).
-- **`destination_node`** e **`channel_index`**: se `destination_node` è `None`
+- **Modalità**: lo script legge `MESHTASTIC_MODE` (`tcp`, `serial` o `auto`) e
+  decide se usare la connessione TCP o seriale in base alle variabili presenti.
+- **`destination_node`** e **`channel_index`**: ora derivano da
+  `DESTINATION_NODE` e `CHANNEL_INDEX`. Se `DESTINATION_NODE` è vuoto o `None`
   il messaggio viene inviato in broadcast, altrimenti a un nodo specifico.
 
-Se vuoi usare una connessione seriale, devi cambiare `is_tcp` a `False` e
-impostare `port` con un device seriale (es. `/dev/ttyUSB0` o `COM3`).
+Se vuoi usare una connessione seriale, imposta `MESHTASTIC_MODE=serial` e
+configura `MESHTASTIC_SERIAL_PORT` con un device seriale (es. `/dev/ttyUSB0`
+o `COM3`).
 
 ### 5) Configurazione Weather Underground
 
