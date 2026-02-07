@@ -1,0 +1,11 @@
+[Unit]
+Description=Run MeteoOverMeshtastic on a schedule
+
+[Timer]
+OnUnitActiveSec=@RUN_INTERVAL_MINUTES@min
+AccuracySec=1min
+Persistent=true
+Unit=meteo-over-meshtastic.service
+
+[Install]
+WantedBy=timers.target
