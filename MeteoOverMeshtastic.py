@@ -12,10 +12,39 @@ import pytz
 # CONFIGURAZIONE MESHTASTIC
 # -------------------------------------------------
 
-MESH_IP = os.getenv("MESHTASTIC_IP", "192.168.0.60")
-MESH_PORT = os.getenv("MESHTASTIC_PORT", "4403")
-port = f"{MESH_IP}:{MESH_PORT}"  # es. "COM3" o "/dev/ttyUSB0" o "192.168.1.199:4403"
-is_tcp = True
+MESHTASTIC_MODE = os.getenv("MESHTASTIC_MODE", "auto").lower()
+MESH_IP = os.getenv("MESHTASTIC_IP")
+MESH_PORT = os.getenv("MESHTASTIC_PORT")
+SERIAL_PORT = os.getenv("MESHTASTIC_SERIAL_PORT")
+
+is_tcp = False
+port = None  # es. "COM3" o "/dev/ttyUSB0" o "192.168.1.199:4403"
+
+if MESHTASTIC_MODE == "tcp":
+    if not MESH_IP or not MESH_PORT:
+        print("[ERRORE] MESHTASTIC_MODE=tcp richiede MESHTASTIC_IP e MESHTASTIC_PORT.")
+        sys.exit(1)
+    port = f"{MESH_IP}:{MESH_PORT}"
+    is_tcp = True
+elif MESHTASTIC_MODE == "serial":
+    if not SERIAL_PORT:
+        print("[ERRORE] MESHTASTIC_MODE=serial richiede MESHTASTIC_SERIAL_PORT.")
+        sys.exit(1)
+    port = SERIAL_PORT
+    is_tcp = False
+elif MESHTASTIC_MODE == "auto":
+    if SERIAL_PORT:
+        port = SERIAL_PORT
+        is_tcp = False
+    elif MESH_IP and MESH_PORT:
+        port = f"{MESH_IP}:{MESH_PORT}"
+        is_tcp = True
+    else:
+        print("[ERRORE] Nessuna configurazione Meshtastic trovata. Imposta MESHTASTIC_SERIAL_PORT oppure MESHTASTIC_IP e MESHTASTIC_PORT.")
+        sys.exit(1)
+else:
+    print(f"[ERRORE] MESHTASTIC_MODE non valido: {MESHTASTIC_MODE}. Usa tcp, serial o auto.")
+    sys.exit(1)
 
 destination_node = None
 channel_index    = 1
