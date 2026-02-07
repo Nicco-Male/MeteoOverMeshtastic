@@ -1,17 +1,17 @@
 # MeteoOverMeshtastic
 
-Send Weather Underground observations over Meshtastic.
+Invia le osservazioni di Weather Underground tramite Meshtastic.
 
-## Setup
+## Installazione
 
-1. Create and activate a virtual environment (optional but recommended).
-2. Install dependencies before running the script:
+1. Crea e attiva un ambiente virtuale (opzionale ma consigliato).
+2. Installa le dipendenze prima di eseguire lo script:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Copy `.env.example` to `.env` and update the required values.
+3. Copia `.env.example` in `.env` e aggiorna i valori richiesti.
 
 ## Guida dettagliata a `.env` e configurazione
 
@@ -107,16 +107,22 @@ set +a
 python MeteoOverMeshtastic.py
 ```
 
-### Setup script (optional)
+### Script di setup (opzionale)
 
-If you prefer, you can run the helper script to create a virtual environment and
-install the requirements:
+Se preferisci, puoi usare lo script di supporto per creare un ambiente virtuale
+e installare i requisiti. Prima rendilo eseguibile:
+
+```bash
+chmod +x ./setup.sh
+```
+
+Poi eseguilo:
 
 ```bash
 ./setup.sh
 ```
 
-## Run
+## Esecuzione
 
 ```bash
 python MeteoOverMeshtastic.py
