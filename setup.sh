@@ -10,8 +10,16 @@ if [ ! -d ".venv" ]; then
   python3 -m venv .venv
 fi
 
-source .venv/bin/activate
-python -m pip install --upgrade pip
-pip install -r requirements.txt
+VENV_PYTHON=".venv/bin/python"
 
-echo "Setup complete. Activate with: source .venv/bin/activate"
+if [ ! -x "$VENV_PYTHON" ]; then
+  echo "Virtual environment python not found at $VENV_PYTHON"
+  exit 1
+fi
+
+"$VENV_PYTHON" -m pip install --upgrade pip
+"$VENV_PYTHON" -m pip install -r requirements.txt
+
+echo "Setup complete."
+echo "Activate with: source .venv/bin/activate"
+echo "Run with: .venv/bin/python MeteoOverMeshtastic.py"
