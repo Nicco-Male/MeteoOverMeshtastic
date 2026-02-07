@@ -47,6 +47,40 @@ Invia le osservazioni di Weather Underground tramite Meshtastic.
    .venv/bin/python MeteoOverMeshtastic.py
    ```
 
+## Esecuzione periodica con cron
+
+Molte persone preferiscono usare `cron` per automatizzare l'invio a intervalli
+regolari. I passaggi qui sotto creano un job che usa la virtualenv del progetto
+e carica il file `.env`.
+
+1. Verifica il percorso assoluto della cartella del progetto:
+
+   ```bash
+   pwd
+   ```
+
+2. Apri il crontab dell'utente:
+
+   ```bash
+   crontab -e
+   ```
+
+3. Aggiungi una riga con l'intervallo desiderato (esempio: ogni 10 minuti):
+
+   ```cron
+   */10 * * * * cd /percorso/assoluto/MeteoOverMeshtastic && /percorso/assoluto/MeteoOverMeshtastic/.venv/bin/python /percorso/assoluto/MeteoOverMeshtastic/MeteoOverMeshtastic.py >> /percorso/assoluto/MeteoOverMeshtastic/meteobot.log 2>&1
+   ```
+
+Suggerimenti:
+
+- Sostituisci `/percorso/assoluto/MeteoOverMeshtastic` con il percorso reale
+  (es. `/home/utente/MeteoOverMeshtastic`).
+- Il redirect `>> meteobot.log 2>&1` salva l'output in un file di log nella
+  cartella del progetto.
+- `cron` non carica automaticamente `.env`, ma lo script lo gestisce da sé
+  perché usa `python-dotenv`. Assicurati solo che il file `.env` sia nella
+  directory del progetto.
+
 ## Guida dettagliata a `.env` e configurazione
 
 Lo script legge le impostazioni tramite variabili d'ambiente (con `os.getenv`) e
