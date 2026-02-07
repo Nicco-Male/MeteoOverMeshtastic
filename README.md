@@ -83,7 +83,6 @@ Il file `MeteoOverMeshtastic.py` è scritto in modo modulare: se desideri cambia
 Per lanciare lo script manualmente (ad esempio per un test), attiva la virtualenv e avvia il programma:
 
 ```bash
-source .venv/bin/activate
 .venv/bin/python MeteoOverMeshtastic.py
 ```
 
