@@ -31,9 +31,9 @@ WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
 STATION_ID      = os.getenv("STATION_ID", "test")
 UNITS           = os.getenv("UNITS", "m")
 
-WEATHER_URL = "https://api.weather.com/v2/pws/observations/current"
+WEATHER_URL = os.getenv("WEATHER_URL", "https://api.weather.com/v2/pws/observations/current")
 
-LOCATION_NAME = "Bientina (Pi)"
+LOCATION_NAME = os.getenv("LOCATION_NAME", "Bientina (Pi)")
 
 JSON_FIELDS = {
     "temperature": ("metric", "temp"),
