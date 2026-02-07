@@ -34,6 +34,7 @@ UNITS           = os.getenv("UNITS", "m")
 WEATHER_URL = os.getenv("WEATHER_URL", "https://api.weather.com/v2/pws/observations/current")
 
 LOCATION_NAME = os.getenv("LOCATION_NAME", "TestName (region)")
+TIMEZONE = os.getenv("TIMEZONE", "Europe/Rome")
 
 JSON_FIELDS = {
     "temperature": ("metric", "temp"),
@@ -92,7 +93,11 @@ def format_weather_message(weather_json):
         rtot = default_value(extract_field(obs, JSON_FIELDS["precip_total"]))
         pres = default_value(extract_field(obs, JSON_FIELDS["pressure"]))
 
-        tz = pytz.timezone("Europe/Rome")
+        try:
+            tz = pytz.timezone(TIMEZONE)
+        except Exception as e:
+            print(f"[ERRORE] Timezone non valida '{TIMEZONE}': {e}. Uso UTC.")
+            tz = pytz.UTC
         now = datetime.now(tz).strftime("%d/%m/%Y %H:%M:%S")
 
         msg = (
