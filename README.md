@@ -15,10 +15,9 @@ pip install -r requirements.txt
 
 ## Guida dettagliata a `.env` e configurazione
 
-Lo script legge le impostazioni tramite variabili d'ambiente (con `os.getenv`),
-quindi il file `.env` **non viene caricato automaticamente**: serve esportare le
-variabili prima di avviare lo script (vedi esempi sotto). Le voci che seguono
-sono allineate al file `.env.example` e alle impostazioni definite in
+Lo script legge le impostazioni tramite variabili d'ambiente (con `os.getenv`) e
+carica automaticamente il file `.env` tramite `python-dotenv`. Le voci che
+seguono sono allineate al file `.env.example` e alle impostazioni definite in
 `MeteoOverMeshtastic.py`. 
 
 ### 1) Preparazione del file `.env`
@@ -41,26 +40,11 @@ sono allineate al file `.env.example` e alle impostazioni definite in
    LOCATION_NAME=Bientina (Pi)
    ```
 
-### 2) Caricare il `.env` prima di eseguire lo script
+### 2) Caricamento automatico del `.env`
 
-Puoi esportare le variabili con una di queste modalità:
-
-```bash
-set -a
-source .env
-set +a
-```
-
-In alternativa, puoi esportare solo le variabili che ti servono:
-
-```bash
-export WEATHER_API_KEY=...
-export STATION_ID=...
-# ecc.
-```
-
-> Nota: se preferisci che lo script carichi automaticamente `.env`, puoi
-> usare `python-dotenv` in futuro, ma al momento non è incluso nelle dipendenze.
+Se il file `.env` è presente nella cartella del progetto, viene caricato in
+automatico all'avvio. Puoi comunque sovrascrivere le variabili esportandole
+manualmente prima di eseguire lo script (ad esempio con `export`).
 
 ### 3) Variabili disponibili e significato
 
@@ -101,9 +85,6 @@ dati.
 ### 6) Esecuzione completa (esempio)
 
 ```bash
-set -a
-source .env
-set +a
 python MeteoOverMeshtastic.py
 ```
 
