@@ -142,14 +142,14 @@ def format_weather_message(weather_json):
         now = datetime.now(tz).strftime("%d/%m/%Y %H:%M:%S")
 
         msg = (
-            f"{LOCATION_NAME}\n"
-            f"Meteo alle {now}\n"
-            f"Temp: {temp} °C\n"
-            f"Umidità: {hum} %\n"
-            f"Vento: {wind} km/h\n"
-            f"Pioggia: {rain} mm\n"
-            f"Da mezzanotte: {rtot} mm\n"
-            f"Pressione: {pres} hPa"
+            f"📍 {LOCATION_NAME}\n"
+            f"🕒 Meteo alle {now}\n"
+            f"🌡️ Temp: {temp} °C\n"
+            f"💧 Umidità: {hum} %\n"
+            f"🌬️ Vento: {wind} km/h\n"
+            f"🌧️ Pioggia: {rain} mm\n"
+            f"🌦️ Da mezzanotte: {rtot} mm\n"
+            f"🧭 Pressione: {pres} hPa"
         )
 
         return msg
