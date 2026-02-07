@@ -10,13 +10,19 @@ Invia le osservazioni di Weather Underground tramite Meshtastic.
    chmod +x ./setup.sh
    ```
 
-2. Avvia lo script di setup:
+2. Crea il file `.env` a partire dall'esempio:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Avvia lo script di setup:
 
    ```bash
    ./setup.sh
    ```
 
-3. Avvia il programma usando l'interprete della venv:
+4. Avvia il programma usando l'interprete della venv:
 
    ```bash
    .venv/bin/python MeteoOverMeshtastic.py
@@ -110,7 +116,8 @@ python MeteoOverMeshtastic.py
 ### Script di setup (opzionale)
 
 Se preferisci, puoi usare lo script di supporto per creare un ambiente virtuale
-e installare i requisiti. Prima rendilo eseguibile:
+e installare i requisiti dopo aver creato il file `.env`. Prima rendilo
+eseguibile:
 
 ```bash
 chmod +x ./setup.sh
