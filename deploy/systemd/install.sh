@@ -20,8 +20,8 @@ set -a
 . "$ENV_FILE"
 set +a
 
-if [[ -z "${RUN_INTERVAL_MINUTES:-}" ]]; then
-  echo "RUN_INTERVAL_MINUTES is not set in $ENV_FILE" >&2
+if [[ -z "${RUN_INTERVAL_HOURS:-}" ]]; then
+  echo "RUN_INTERVAL_HOURS is not set in $ENV_FILE" >&2
   exit 1
 fi
 
@@ -31,7 +31,7 @@ TIMER_DEST="/etc/systemd/system/meteo-over-meshtastic.timer"
 sed "s#/path/al/progetto#${PROJECT_ROOT}#g" \
   "$SCRIPT_DIR/meteo-over-meshtastic.service" > "$SERVICE_DEST"
 
-sed "s/@RUN_INTERVAL_MINUTES@/${RUN_INTERVAL_MINUTES}/g" \
+sed "s/@RUN_INTERVAL_HOURS@/${RUN_INTERVAL_HOURS}/g" \
   "$SCRIPT_DIR/meteo-over-meshtastic.timer" > "$TIMER_DEST"
 
 chmod 644 "$SERVICE_DEST" "$TIMER_DEST"
@@ -39,4 +39,4 @@ chmod 644 "$SERVICE_DEST" "$TIMER_DEST"
 systemctl daemon-reload
 systemctl enable --now meteo-over-meshtastic.timer
 
-echo "Installed meteo-over-meshtastic systemd units with interval ${RUN_INTERVAL_MINUTES} min."
+echo "Installed meteo-over-meshtastic systemd units with interval ${RUN_INTERVAL_HOURS} h."

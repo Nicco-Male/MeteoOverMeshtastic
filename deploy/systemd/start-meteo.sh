@@ -12,8 +12,8 @@ if [[ -f "$ENV_FILE" ]]; then
   set +a
 fi
 
-if [[ -n "${RUN_INTERVAL_MINUTES:-}" ]]; then
-  echo "[meteo-over-meshtastic] RUN_INTERVAL_MINUTES=${RUN_INTERVAL_MINUTES}" >&2
+if [[ -n "${RUN_INTERVAL_HOURS:-}" ]]; then
+  echo "[meteo-over-meshtastic] RUN_INTERVAL_HOURS=${RUN_INTERVAL_HOURS}" >&2
 fi
 
 exec "$PROJECT_ROOT/.venv/bin/python" "$PROJECT_ROOT/MeteoOverMeshtastic.py"
