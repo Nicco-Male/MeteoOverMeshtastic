@@ -13,6 +13,30 @@ pip install -r requirements.txt
 
 3. Copia `.env.example` in `.env` e aggiorna i valori richiesti.
 
+### Problemi di permessi durante `pip install`
+
+Se vedi un errore simile a:
+
+```
+ERROR: Could not install packages due to an OSError: [Errno 13] Permission denied: '.../site-packages/...'
+```
+
+significa che stai installando in un ambiente non scrivibile (es. una venv
+di sistema in `/opt`). La soluzione consigliata è usare una venv nella home:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+In alternativa (meno consigliata), puoi installare in user space:
+
+```bash
+pip install --user -r requirements.txt
+```
+
 ## Guida dettagliata a `.env` e configurazione
 
 Lo script legge le impostazioni tramite variabili d'ambiente (con `os.getenv`),
