@@ -115,7 +115,7 @@ La cartella contiene quattro file principali:
    sudo ./deploy/systemd/install.sh
    ```
 
-   Lo script copierà le unità in `/etc/systemd/system`, sostituirà i placeholder con i valori del tuo progetto e abiliterà il timer【402729759199522†L27-L41】. Al termine riceverai un messaggio con l’intervallo impostato.
+   Lo script copierà le unità in `/etc/systemd/system`, sostituirà i placeholder con i valori del tuo progetto e abiliterà il timer. Al termine riceverai un messaggio con l’intervallo impostato.
 
 3. Verifica lo stato del servizio e del timer con:
 
@@ -124,7 +124,7 @@ La cartella contiene quattro file principali:
    systemctl status meteo-over-meshtastic.timer
    ```
 
-4. Per modificare l’intervallo in futuro, aggiorna `RUN_INTERVAL_MINUTES` in `.env` e riesegui `sudo ./deploy/systemd/install.sh`【294953117720645†L31-L37】.
+4. Per modificare l’intervallo in futuro, aggiorna `RUN_INTERVAL_MINUTES` in `.env` e riesegui `sudo ./deploy/systemd/install.sh`.
 
 ### 6.3 Esecuzione con un utente dedicato
 
