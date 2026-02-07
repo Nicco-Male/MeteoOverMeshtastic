@@ -48,6 +48,11 @@ Invia le osservazioni di Weather Underground tramite Meshtastic.
    .venv/bin/python MeteoOverMeshtastic.py
    ```
 
+## Systemd (servizio + timer)
+
+Per eseguire MeteoOverMeshtastic con `systemd` e un timer configurabile tramite
+`.env`, consulta la guida in `deploy/systemd/README.md`.
+
 ## Guida dettagliata a `.env` e configurazione
 
 Lo script legge le impostazioni tramite variabili d'ambiente (con `os.getenv`) e

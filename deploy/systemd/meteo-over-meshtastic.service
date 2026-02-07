@@ -1,0 +1,14 @@
+[Unit]
+Description=MeteoOverMeshtastic service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/path/al/progetto
+EnvironmentFile=/path/al/progetto/.env
+ExecStart=/path/al/progetto/.venv/bin/python /path/al/progetto/MeteoOverMeshtastic.py
+User=meteo
+
+[Install]
+WantedBy=multi-user.target
