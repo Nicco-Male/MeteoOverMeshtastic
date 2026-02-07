@@ -2,6 +2,26 @@
 
 Invia le osservazioni di Weather Underground tramite Meshtastic.
 
+## Guida rapida
+
+1. Rendi eseguibile lo script di setup:
+
+   ```bash
+   chmod +x ./setup.sh
+   ```
+
+2. Avvia lo script di setup:
+
+   ```bash
+   ./setup.sh
+   ```
+
+3. Avvia il programma usando l'interprete della venv:
+
+   ```bash
+   .venv/bin/python MeteoOverMeshtastic.py
+   ```
+
 ## Installazione
 
 1. Crea e attiva un ambiente virtuale (opzionale ma consigliato).
@@ -138,6 +158,15 @@ Poi eseguilo:
 ```
 
 ## Esecuzione
+
+Se hai usato lo script di setup, l'avvio consigliato utilizza l'interprete
+virtuale creato in `.venv`:
+
+```bash
+.venv/bin/python MeteoOverMeshtastic.py
+```
+
+In alternativa, se hai attivato manualmente la venv, puoi usare `python`:
 
 ```bash
 python MeteoOverMeshtastic.py
