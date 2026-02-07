@@ -58,7 +58,7 @@ Lo script legge i parametri di configurazione dalle **variabili d’ambiente** e
 | `MESHTASTIC_SERIAL_PORT` | Dispositivo seriale (es. `/dev/ttyUSB0` su Linux, `COM3` su Windows). Necessario se `MESHTASTIC_MODE` è `serial`. | — |
 | `DESTINATION_NODE` | ID del nodo Meshtastic destinatario. Se lasciato vuoto o impostato a `None` lo script invierà il messaggio in **broadcast**. | *Nessun default* |
 | `CHANNEL_INDEX` | Indice del canale Meshtastic su cui inviare il messaggio. | `1` |
-| `RUN_INTERVAL_MINUTES` | Intervallo in minuti per l’esecuzione periodica con systemd timer. Viene utilizzato dallo script di installazione systemd. | `10` (nel file di esempio) |
+| `RUN_INTERVAL_HOURS` | Intervallo in ore per l’esecuzione periodica con systemd timer. Viene utilizzato dallo script di installazione systemd. | `4` (nel file di esempio) |
 
 **Consiglio:** dopo aver modificato `.env`, verifica di non aver lasciato spazi o virgolette indesiderate e assicurati che la chiave API sia corretta.  In caso di errori di configurazione, lo script stampa messaggi esplicativi e termina l’esecuzione.
 
@@ -98,16 +98,16 @@ Se desideri che MeteoOverMeshtastic invii i dati a intervalli regolari senza dov
 La cartella contiene quattro file principali:
 
 - `meteo-over-meshtastic.service`: unità di servizio che definisce la directory di lavoro, il percorso del programma e l’utente con cui eseguirlo.
-- `meteo-over-meshtastic.timer`: definisce l’intervallo di esecuzione in minuti tramite il placeholder `@RUN_INTERVAL_MINUTES@`.
+- `meteo-over-meshtastic.timer`: definisce l’intervallo di esecuzione in minuti tramite il placeholder `@RUN_INTERVAL_HOURS@`.
 - `start-meteo.sh`: wrapper che carica il file `.env` e avvia il programma, stampando a log l’intervallo corrente.
 - `install.sh`: script che sostituisce i placeholder nei file unit, copia le unità nella directory `/etc/systemd/system`, ricarica systemd e abilita il timer.
 
 ### 6.2 Installazione del servizio
 
-1. Assicurati che il file `.env` contenga la variabile `RUN_INTERVAL_MINUTES` con l’intervallo desiderato, ad esempio:
+1. Assicurati che il file `.env` contenga la variabile `RUN_INTERVAL_HOURS` con l’intervallo desiderato, ad esempio:
 
    ```ini
-   RUN_INTERVAL_MINUTES=10
+   RUN_INTERVAL_HOURS=4
    ```
 
 2. Esegui lo script di installazione con i privilegi di root:
