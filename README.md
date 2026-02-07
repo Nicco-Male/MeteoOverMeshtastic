@@ -16,7 +16,9 @@ Invia le osservazioni di Weather Underground tramite Meshtastic.
    cp .env.example .env
    ```
 
-3. Apri `.env` e compila i valori. Esempio:
+3. Apri `nano .env` e compila i valori. 
+
+   Esempio:
 
    ```ini
    WEATHER_API_KEY=la_tua_chiave_api
@@ -33,13 +35,13 @@ Invia le osservazioni di Weather Underground tramite Meshtastic.
    ```
    
 
-4. Avvia lo script di setup:
+5. Avvia lo script di setup:
 
    ```bash
    ./setup.sh
    ```
    
- 5.  Avvia il programma usando l'interprete della venv:
+ 6.  Avvia il programma usando l'interprete della venv:
 
    ```bash
    .venv/bin/python MeteoOverMeshtastic.py
