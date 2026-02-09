@@ -13,7 +13,7 @@ Prima di iniziare assicurati di avere:
 
 ## 2. Installazione rapida
 
-Per un’installazione rapida e senza sorprese puoi utilizzare lo script `setup.sh` incluso nel progetto.  Questo script crea un ambiente virtuale e installa tutte le dipendenze necessarie 【823491833816282†L8-L20】.  Ecco come procedere:
+Per un’installazione rapida e senza sorprese puoi utilizzare lo script `setup.sh` incluso nel progetto.  Questo script crea un ambiente virtuale e installa tutte le dipendenze necessarie.  Ecco come procedere:
 
 1. **Clona** o **scarica** il repository in una directory a tua scelta:
 
@@ -29,7 +29,7 @@ Per un’installazione rapida e senza sorprese puoi utilizzare lo script `setup.
    ./setup.sh
    ```
 
-   Lo script creerà la cartella `.venv`, installerà l’ultima versione di `pip` e tutte le dipendenze elencate in `requirements.txt`【823491833816282†L8-L20】. Al termine comparirà un messaggio con i comandi per attivare la virtualenv e per avviare il programma.
+   Lo script creerà la cartella `.venv`, installerà l’ultima versione di `pip` e tutte le dipendenze elencate in `requirements.txt`. Al termine comparirà un messaggio con i comandi per attivare la virtualenv e per avviare il programma.
 
 3. **Copia il file di esempio `.env`** e personalizza i valori:
 
@@ -42,7 +42,7 @@ Per un’installazione rapida e senza sorprese puoi utilizzare lo script `setup.
 
 ## 3. Configurazione tramite `.env`
 
-Lo script legge i parametri di configurazione dalle **variabili d’ambiente** e, se presente, dal file `.env` usando la libreria `python‑dotenv`【12191410124782†L56-L88】.  L’esempio contenuto in `.env.example` è un ottimo punto di partenza.  Di seguito è riportata la lista completa delle variabili supportate:
+Lo script legge i parametri di configurazione dalle **variabili d’ambiente** e, se presente, dal file `.env` usando la libreria `python‑dotenv`.  L’esempio contenuto in `.env.example` è un ottimo punto di partenza.  Di seguito è riportata la lista completa delle variabili supportate:
 
 | Variabile | Descrizione | Valore di default / Obbligatorio |
 | --- | --- | --- |
